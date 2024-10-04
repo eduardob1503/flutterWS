@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 import 'package:ws_project/pages/login.dart';
 import 'package:ws_project/main.dart';
-import 'package:ws_project/splash.dart';
+import 'package:ws_project/pages/splash.dart';
 
 class Cadastro extends StatelessWidget {
   const Cadastro({super.key});
@@ -24,11 +24,7 @@ class TelaCadastro extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const TelaInicio(),
-                ));
+            
           },
         ),
         title: const Text("Cadastro"),
@@ -80,7 +76,15 @@ class TelaCadastro extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const TelaLogin(),
+                ));
+
+
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.black,
                   padding:

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:ws_project/pages/cadastro.dart';
-import 'package:ws_project/main.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:ws_project/pages/splash.dart';
+import 'package:ws_project/pages/perfil.dart';
+
+
 
 class TelaLogin extends StatelessWidget {
   const TelaLogin({super.key});
@@ -20,6 +23,15 @@ class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
+
+
+
+
+
+
+
+
+
 
 class _LoginScreenState extends State<LoginScreen> {
   final LocalAuthentication auth = LocalAuthentication();
@@ -74,19 +86,39 @@ class _LoginScreenState extends State<LoginScreen> {
     });
   }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
+
+          //Botão voltar
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const TelaCadastro()),
+              MaterialPageRoute(builder: (context) => const TelaInicio()),
             );
           },
         ),
+
+
         title: const Text('Login'),
       ),
       body: SingleChildScrollView(
@@ -119,11 +151,18 @@ class _LoginScreenState extends State<LoginScreen> {
               obscureText: true, // Oculta o texto da senha
             ),
 
+
+
+//Botão recuperar senha
             Align(
               alignment: Alignment.centerLeft,
               child: TextButton(
                 onPressed: () {
-                  // Troca de página
+                  Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const TelaPerfil(),
+                ));
                 },
                 child: const Text(
                   'recuperar senha',
@@ -132,7 +171,14 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
 
+
+
+
             const SizedBox(height: 20),
+
+
+
+
 
             // Botão "Entrar" com autenticação biométrica
             ElevatedButton(
@@ -151,9 +197,14 @@ class _LoginScreenState extends State<LoginScreen> {
             Text(_isAuthenticated
                 ? 'Autenticado com sucesso!'
                 : 'Não autenticado'),
+
+
+
+                
           ],
         ),
       ),
     );
   }
+
 }

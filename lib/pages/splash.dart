@@ -43,7 +43,14 @@ class TelaInicio extends StatelessWidget {
               const SizedBox(height: 80),
               Center(
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                    builder: (context) => const TelaCadastro(),
+                ));
+
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black,
                     padding: const EdgeInsets.symmetric(

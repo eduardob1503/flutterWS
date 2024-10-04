@@ -10,7 +10,7 @@ dependencies:
 
   flutter:
     sdk: flutter
-  local_auth: ^2.1.0  # Coloque a versão correta aqui
+  local_auth: ^2.1.0  
 
 
 
