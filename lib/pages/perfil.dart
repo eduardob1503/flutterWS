@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:ws_project/pages/materias.dart';
 import 'package:ws_project/pages/ranking.dart';
+import 'package:ws_project/pages/splash.dart';
 import 'cadastro.dart';
 
 class Perfil extends StatelessWidget {
@@ -53,16 +55,16 @@ class TelaPerfil extends StatelessWidget {
               decoration: BoxDecoration(
                 border: Border.all(
                   color: Colors.black,
-                  width: 5
+                  width: 1
               ),
               ),
             
             child: ListTile(
-              tileColor: Colors.white,
+              tileColor: const Color.fromARGB(255, 0, 0, 0),
               title: const Center(
                 child: const Text(
                   'Meu Perfil',
-                  style: TextStyle (color: Colors.black),
+                  style: TextStyle (color: Color.fromARGB(255, 255, 255, 255)),
                   ),
                 
                 ),
@@ -72,9 +74,16 @@ class TelaPerfil extends StatelessWidget {
             ),
             ),
             
-            SizedBox(height: 50),
+            
 
-            ListTile(
+            Container(
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Colors.black,
+                  width: 1
+                )
+              ),
+              child: ListTile(
               
               tileColor: Colors.white,
               title: const Center(
@@ -90,22 +99,51 @@ class TelaPerfil extends StatelessWidget {
                   );
               },
             ),
-            
-            SizedBox(height: 50),
-            
-            ListTile(
-               tileColor: Colors.white,
-              title: const Center(
-              child: const Text('Matérias'),
-              ),
-              onTap: () {
-                // Ação ao clicar em Matérias
-              },
             ),
-            ListTile(
-              title: const Text('Logout'),
-              onTap: () {
-                // Ação ao clicar no Logout
+            
+            
+            
+            Container(
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Colors.black,
+                  width: 1
+                )
+              ),
+              child: ListTile(
+                tileColor: Colors.white,
+                title: const Center(
+                  child: const Text('Matéria'),
+                ),
+                onTap: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context)=> const TelaMaterias(),
+                      )
+                  );
+                },
+              ),
+            ),
+
+
+            SizedBox(height: 450),
+            ElevatedButton(
+              child: const Text('Logout'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.black,
+                foregroundColor: Colors.white,
+                
+
+              ),
+              
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const TelaInicio(),
+                    )
+                  );
               },
             ),
           ],
