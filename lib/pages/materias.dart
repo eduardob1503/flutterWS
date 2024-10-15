@@ -5,7 +5,7 @@ class Materias extends StatelessWidget{
 
   @override
   Widget build(BuildContext context){
-    return MaterialApp(
+    return const MaterialApp(
       home: TelaMaterias(),
     );
   }
@@ -22,13 +22,14 @@ class TelaMaterias extends StatelessWidget{
         leading: Builder(
           builder: (context){
             return IconButton(
-              icon: const icon(Icons.menu),
+              icon: const Icon(Icons.menu),
               onPressed: (){
 
-            }, )
+            }, 
+            );
           }
         ),
       ),
-    )
+    );
   }
 }

@@ -10,8 +10,7 @@ dependencies:
 
   flutter:
     sdk: flutter
-    assets:
-    - assets/Png.png
+
   local_auth: ^2.1.0  
 
 

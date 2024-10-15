@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ws_project/pages/cadastro.dart';
-import 'package:ws_project/pages/login.dart';
 import 'package:ws_project/pages/splash.dart'; // Certifique-se de importar suas outras páginas
 import 'dart:async';
 

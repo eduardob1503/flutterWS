@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:ws_project/pages/ranking.dart';
+import 'cadastro.dart';
 
 class Perfil extends StatelessWidget {
   const Perfil({super.key});
@@ -32,6 +34,7 @@ class TelaPerfil extends StatelessWidget {
         ),
       ),
       drawer: Drawer(
+        backgroundColor: Colors.white,
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
@@ -44,20 +47,57 @@ class TelaPerfil extends StatelessWidget {
               height: 100,
             ),
             ),
-            ListTile(
-              title: const Text('Meu Perfil'),
+
+
+            Container(
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Colors.black,
+                  width: 5
+              ),
+              ),
+            
+            child: ListTile(
+              tileColor: Colors.white,
+              title: const Center(
+                child: const Text(
+                  'Meu Perfil',
+                  style: TextStyle (color: Colors.black),
+                  ),
+                
+                ),
               onTap: () {
                 // Ação ao clicar no Meu Perfil
               },
             ),
+            ),
+            
+            SizedBox(height: 50),
+
             ListTile(
-              title: const Text('Ranking'),
+              
+              tileColor: Colors.white,
+              title: const Center(
+              child: const Text('Ranking'),
+              ),
               onTap: () {
-                // Ação ao clicar no Ranking
+                
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const TelaRanking(),
+                    )
+                  );
               },
             ),
+            
+            SizedBox(height: 50),
+            
             ListTile(
-              title: const Text('Matérias'),
+               tileColor: Colors.white,
+              title: const Center(
+              child: const Text('Matérias'),
+              ),
               onTap: () {
                 // Ação ao clicar em Matérias
               },

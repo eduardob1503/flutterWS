@@ -1,7 +1,5 @@
 import "package:flutter/material.dart";
 import 'package:ws_project/pages/login.dart';
-import 'package:ws_project/main.dart';
-import 'package:ws_project/pages/splash.dart';
 
 class Cadastro extends StatelessWidget {
   const Cadastro({super.key});
