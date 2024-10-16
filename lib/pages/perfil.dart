@@ -1,15 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Perfil extends StatelessWidget {
-  const Perfil({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: TelaPerfil(),
-    );
-  }
-}
 
 class TelaPerfil extends StatelessWidget {
   const TelaPerfil({super.key});
