@@ -2,19 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:ws_project/pages/materias.dart';
 import 'package:ws_project/pages/perfil.dart';
 
-class Ranking extends StatelessWidget{
-  const Ranking ({super.key});
-  
-  @override
-  Widget build (BuildContext context){
-    return const MaterialApp(
-      home: TelaRanking(),
-    );
-  }
-}
 
 class TelaRanking extends StatelessWidget{
-  const TelaRanking ({super.key});
+
 
   @override
   Widget build(BuildContext context){
