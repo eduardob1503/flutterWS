@@ -2,16 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:ws_project/pages/ranking.dart';
 import 'perfil.dart';
 
-class Materias extends StatelessWidget{
-  const Materias ({super.key});
-
-  @override
-  Widget build(BuildContext context){
-    return const MaterialApp(
-      home: TelaMaterias(),
-    );
-  }
-}
 
 class TelaMaterias extends StatelessWidget{
   const TelaMaterias ({super.key});
@@ -19,7 +9,8 @@ class TelaMaterias extends StatelessWidget{
   @override
   Widget build(BuildContext context){
     return Scaffold(
-      appBar: AppBar(
+      // AppBar com menu e pesquisa
+     appBar: AppBar(
         backgroundColor: Colors.white,
         leading: Builder(
           builder: (context){
@@ -38,7 +29,7 @@ class TelaMaterias extends StatelessWidget{
           padding: EdgeInsets.zero,
           children: <Widget>[
             DrawerHeader(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white,
               ),
               child: Image.network(
@@ -135,4 +126,42 @@ Navigator.push(
 
   );   
   }
+
+  // Método para construir o card de cada matéria
+  Widget _buildMateriaCard(int index) {
+    return Card(
+      child: SizedBox(
+        height: 140, // Altura fixa de 140px
+        child: Stack(
+          children: [
+            // Nome da matéria (canto superior esquerdo)
+            Positioned(
+              top: 16,
+              left: 16,
+              child: Text(
+                'Nome da Matéria ${index + 1}',
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+            // Botão de acesso (canto inferior direito)
+            Positioned(
+              bottom: 16,
+              right: 16,
+              child: ElevatedButton(
+                child: const Text('Acessar'),
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.black,
+                  foregroundColor: Colors.white,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
+
+
+

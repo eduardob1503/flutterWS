@@ -3,11 +3,12 @@ import 'package:ws_project/pages/materias.dart';
 import 'package:ws_project/pages/perfil.dart';
 
 
-class TelaRanking extends StatelessWidget{
 
 
+
+class TelaRanking extends StatelessWidget {
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: Builder(
@@ -116,22 +117,64 @@ class TelaRanking extends StatelessWidget{
           ],
         ),
       ),
-
-      body: const SingleChildScrollView(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-            Center(
-              child: Text(
-                "Ranking - Paraná",
-                style: TextStyle(
+      body: Column(
+        children: [
+          // Parte estática superior
+          Container(
+            padding: EdgeInsets.all(16),
+            child: Column(
+              children: [
+                Icon(Icons.arrow_upward, size: 40),
+                SizedBox(height: 8),
+                Text(
+                  'Ranking - Paraná',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
-                textAlign: TextAlign.center, 
-              ),    
-            )       
-          ],
-        ),
+              ],
+            ),
+          ),
+          // Lista rolável de rankings
+          Expanded(
+            child: ListView.builder(
+              itemCount: 20, // Número de itens no ranking
+              itemBuilder: (context, index) {
+                return Container(
+                  margin: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                  padding: EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        blurRadius: 4,
+                        offset: Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: Row(
+                    children: [
+                      Text(
+                        '${index + 1}.',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(width: 12),
+                      Icon(Icons.person, color: Colors.purple),
+                      SizedBox(width: 8),
+                      Expanded(
+                        child: Text('Aluno ${index + 1}'),
+                      ),
+                      Text(
+                        '3685pts',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }

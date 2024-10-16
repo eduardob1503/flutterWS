@@ -2,16 +2,6 @@ import "package:flutter/material.dart";
 import 'package:ws_project/pages/login.dart';
 import 'splash.dart';
 
-class Cadastro extends StatelessWidget {
-  const Cadastro({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: TelaCadastro(),
-    );
-  }
-}
 
 class TelaCadastro extends StatelessWidget {
   const TelaCadastro({super.key});

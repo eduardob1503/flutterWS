@@ -4,16 +4,7 @@ import 'package:ws_project/pages/ranking.dart';
 import 'package:ws_project/pages/splash.dart';
 import 'cadastro.dart';
 
-class Perfil extends StatelessWidget {
-  const Perfil({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: TelaPerfil(),
-    );
-  }
-}
 
 class TelaPerfil extends StatelessWidget {
   const TelaPerfil({super.key});
@@ -94,7 +85,7 @@ class TelaPerfil extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const TelaRanking(),
+                    builder: (context) => TelaRanking(),
                     )
                   );
               },
