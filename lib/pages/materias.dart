@@ -2,28 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:ws_project/pages/ranking.dart';
 import 'perfil.dart';
 
-
-class TelaMaterias extends StatelessWidget{
-  const TelaMaterias ({super.key});
+class TelaMaterias extends StatelessWidget {
+  const TelaMaterias({super.key});
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(
-      // AppBar com menu e pesquisa
-     appBar: AppBar(
-        backgroundColor: Colors.white,
+      appBar: AppBar(
         leading: Builder(
-          builder: (context){
+          builder: (context) {
             return IconButton(
               icon: const Icon(Icons.menu),
-              onPressed: (){
-            Scaffold.of(context).openDrawer();
-            }, 
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
             );
-          }
+          },
         ),
       ),
-        drawer: Drawer(
+      drawer: Drawer(
         backgroundColor: Colors.white,
         child: ListView(
           padding: EdgeInsets.zero,
@@ -33,103 +30,50 @@ class TelaMaterias extends StatelessWidget{
                 color: Colors.white,
               ),
               child: Image.network(
-              'https://via.placeholder.com/150', // URL do seu logo ou use Image.asset se estiver na pasta do projeto
-              height: 100,
+                'https://via.placeholder.com/150',
+                height: 100,
+              ),
             ),
+            _buildDrawerItem(context, "Meu Perfil", TelaPerfil()),
+            _buildDrawerItem(context, "Ranking", TelaRanking()),
+            _buildDrawerItem(context, "Matéria", const TelaMaterias()),
+          ],
         ),
-        Container(
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: Colors.black,
-                  width: 1
-                )
-              ),
-
-            child: ListTile(
-              tileColor: const Color.fromARGB(255, 255, 255, 255),
-              title: const Center(
-                child: Text("Meu Perfil",
-                style: TextStyle(color: Colors.black),
+      ),
+      body: Column(
+        children: [
+          // Parte estática superior
+          Container(
+            padding: EdgeInsets.all(16),
+            child: Column(
+              children: [
+                Icon(Icons.book, size: 40),
+                SizedBox(height: 8),
+                Text(
+                  'Materias',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
-              ),
-              onTap: (){
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const TelaPerfil(),
-                    )
-                  );
+              ],
+            ),
+          ),
+          // Lista rolável de matérias
+          Expanded(
+            child: ListView.builder(
+              itemCount: 10, // Número de matérias
+              itemBuilder: (context, index) {
+                return _buildMateriaCard(index);
               },
             ),
-            ),
-
-            Container(
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: Colors.black,
-                  width: 1
-                )
-              ),
-
-            child: ListTile(
-              tileColor: const Color.fromARGB(255, 255, 255, 255),
-              title: const Center(
-                child: Text(
-                  "Ranking",
-                style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
-                ),
-              ),
-              onTap: (){
-Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => TelaRanking(),
-                    )
-                  );
-              },
-            ),
-            ),
-            Container(
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: Colors.black,
-                  width: 1
-                )
-              ),
-
-            child: ListTile(
-              tileColor: const Color.fromARGB(255, 0, 0, 0),
-              title: const Center(
-                child: Text(
-                  "Matéria",
-                style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
-                ),
-              ),
-              onTap: (){
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const TelaMaterias(),
-                    )
-                  );
-              },
-            ),
-            ),
-      ],
-      )
-    ),
-
-
-
-
-
-
-  );   
+          ),
+        ],
+      ),
+    );
   }
 
   // Método para construir o card de cada matéria
   Widget _buildMateriaCard(int index) {
     return Card(
+      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: SizedBox(
         height: 140, // Altura fixa de 140px
         child: Stack(
@@ -149,7 +93,9 @@ Navigator.push(
               right: 16,
               child: ElevatedButton(
                 child: const Text('Acessar'),
-                onPressed: () {},
+                onPressed: () {
+                  // Ação do botão de acesso
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.black,
                   foregroundColor: Colors.white,
@@ -161,7 +107,27 @@ Navigator.push(
       ),
     );
   }
+
+  Widget _buildDrawerItem(BuildContext context, String title, Widget destination) {
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.black, width: 1),
+      ),
+      child: ListTile(
+        tileColor: const Color.fromARGB(255, 255, 255, 255),
+        title: Center(
+          child: Text(
+            title,
+            style: const TextStyle(color: Colors.black),
+          ),
+        ),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => destination),
+          );
+        },
+      ),
+    );
+  }
 }
-
-
-
