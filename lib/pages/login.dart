@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:ws_project/pages/cadastro.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:ws_project/pages/cadastro.dart';
 import 'package:ws_project/pages/splash.dart';
 import 'package:ws_project/pages/perfil.dart';
-
-
 
 class TelaLogin extends StatelessWidget {
   const TelaLogin({super.key});
@@ -24,19 +22,13 @@ class LoginScreen extends StatefulWidget {
   _LoginScreenState createState() => _LoginScreenState();
 }
 
-
-
-
-
-
-
-
-
-
 class _LoginScreenState extends State<LoginScreen> {
   final LocalAuthentication auth = LocalAuthentication();
   bool _isAuthenticated = false;
   bool _canCheckBiometrics = false;
+
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   void initState() {
@@ -44,7 +36,6 @@ class _LoginScreenState extends State<LoginScreen> {
     _checkBiometrics();
   }
 
-  // Verificar se o dispositivo suporta biometria
   Future<void> _checkBiometrics() async {
     bool canCheckBiometrics = false;
     try {
@@ -57,8 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
     });
   }
 
-  // Autenticar com biometria
-  Future<void> _authenticate() async {
+  Future<void> _authenticateOrLogin() async {
     bool authenticated = false;
     try {
       authenticated = await auth.authenticate(
@@ -71,36 +61,41 @@ class _LoginScreenState extends State<LoginScreen> {
     } catch (e) {
       print(e);
     }
-    setState(() {
-      _isAuthenticated = authenticated;
-      if (_isAuthenticated) {
-        // Aqui você pode colocar a navegação para a próxima página
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Autenticado com sucesso!')),
-        );
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Falha na autenticação!')),
-        );
-      }
-    });
+    
+    if (!authenticated) {
+      // Se não for autenticado com biometria, tenta login com email e senha
+      _loginWithCredentials();
+    } else {
+      setState(() {
+        _isAuthenticated = authenticated;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Autenticado com sucesso!')),
+      );
+      // Navegar para a próxima página
+    }
   }
 
+  void _loginWithCredentials() {
+    String email = _emailController.text;
+    String password = _passwordController.text;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
+    // Aqui você deve adicionar a lógica para validar o email e a senha
+    if (email.isNotEmpty && password.isNotEmpty) {
+      // Suponha que a autenticação foi bem-sucedida
+      setState(() {
+        _isAuthenticated = true;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Login realizado com sucesso!')),
+      );
+      // Navegar para a próxima página
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Por favor, preencha todos os campos.')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -108,8 +103,6 @@ class _LoginScreenState extends State<LoginScreen> {
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-
-          //Botão voltar
           onPressed: () {
             Navigator.push(
               context,
@@ -117,8 +110,6 @@ class _LoginScreenState extends State<LoginScreen> {
             );
           },
         ),
-
-
         title: const Text('Login'),
       ),
       body: SingleChildScrollView(
@@ -128,13 +119,14 @@ class _LoginScreenState extends State<LoginScreen> {
           children: [
             const SizedBox(height: 50),
             Image.network(
-              'https://via.placeholder.com/150', // Substituir com o caminho da sua imagem
+              'https://via.placeholder.com/150',
               height: 100,
             ),
             const SizedBox(height: 30),
 
             // Campo de e-mail
             TextFormField(
+              controller: _emailController,
               decoration: const InputDecoration(
                 labelText: 'Email',
                 border: OutlineInputBorder(),
@@ -144,67 +136,51 @@ class _LoginScreenState extends State<LoginScreen> {
 
             // Campo de senha
             TextFormField(
+              controller: _passwordController,
               decoration: const InputDecoration(
                 labelText: 'Senha',
                 border: OutlineInputBorder(),
               ),
-              obscureText: true, // Oculta o texto da senha
+              obscureText: true,
             ),
 
-
-
-//Botão recuperar senha
+            // Botão recuperar senha
             Align(
               alignment: Alignment.centerLeft,
               child: TextButton(
                 onPressed: () {
                   Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const TelaPerfil(),
-                ));
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const TelaPerfil(),
+                    ),
+                  );
                 },
                 child: const Text(
-                  'recuperar senha',
+                  'Recuperar senha',
                   style: TextStyle(color: Colors.blue),
                 ),
               ),
             ),
 
-
-
-
             const SizedBox(height: 20),
 
-
-
-
-
-            // Botão "Entrar" com autenticação biométrica
+            // Botão "Entrar" com biometria e senha
             ElevatedButton(
-              onPressed: _canCheckBiometrics
-                  ? _authenticate
-                  : null, // Chama a autenticação biométrica
+              onPressed: _authenticateOrLogin,
               style: ElevatedButton.styleFrom(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 100, vertical: 15),
+                padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 15),
               ),
-              child: const Text('Entrar usando Impressão Digital'),
+              child: const Text('Entrar'),
             ),
+
             const SizedBox(height: 20),
 
             // Exibe o status de autenticação
-            Text(_isAuthenticated
-                ? 'Autenticado com sucesso!'
-                : 'Não autenticado'),
-
-
-
-                
+            Text(_isAuthenticated ? 'Autenticado com sucesso!' : 'Não autenticado'),
           ],
         ),
       ),
     );
   }
-
 }
