@@ -32,7 +32,7 @@ class TelaPerfil extends StatelessWidget {
           padding: EdgeInsets.zero,
           children: <Widget>[
             DrawerHeader(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white,
               ),
               child: Image.network(
@@ -53,7 +53,7 @@ class TelaPerfil extends StatelessWidget {
             child: ListTile(
               tileColor: const Color.fromARGB(255, 0, 0, 0),
               title: const Center(
-                child: const Text(
+                child: Text(
                   'Meu Perfil',
                   style: TextStyle (color: Color.fromARGB(255, 255, 255, 255)),
                   ),
@@ -78,7 +78,7 @@ class TelaPerfil extends StatelessWidget {
               
               tileColor: Colors.white,
               title: const Center(
-              child: const Text('Ranking'),
+              child: Text('Ranking'),
               ),
               onTap: () {
                 
@@ -104,7 +104,7 @@ class TelaPerfil extends StatelessWidget {
               child: ListTile(
                 tileColor: Colors.white,
                 title: const Center(
-                  child: const Text('Matéria'),
+                  child: Text('Matéria'),
                 ),
                 onTap: (){
                   Navigator.push(
@@ -118,7 +118,7 @@ class TelaPerfil extends StatelessWidget {
             ),
 
 
-            SizedBox(height: 450),
+            const SizedBox(height: 450),
             ElevatedButton(
               child: const Text('Logout'),
               style: ElevatedButton.styleFrom(

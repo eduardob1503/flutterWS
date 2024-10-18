@@ -34,7 +34,7 @@ class TelaMaterias extends StatelessWidget {
                 height: 100,
               ),
             ),
-            _buildDrawerItem(context, "Meu Perfil", TelaPerfil()),
+            _buildDrawerItem(context, "Meu Perfil", const TelaPerfil()),
             _buildDrawerItem(context, "Ranking", TelaRanking()),
             _buildDrawerItem(context, "Matéria", const TelaMaterias()),
           ],
@@ -44,8 +44,8 @@ class TelaMaterias extends StatelessWidget {
         children: [
           // Parte estática superior
           Container(
-            padding: EdgeInsets.all(16),
-            child: Column(
+            padding: const EdgeInsets.all(16),
+            child: const Column(
               children: [
                 Icon(Icons.book, size: 40),
                 SizedBox(height: 8),
@@ -73,7 +73,7 @@ class TelaMaterias extends StatelessWidget {
   // Método para construir o card de cada matéria
   Widget _buildMateriaCard(int index) {
     return Card(
-      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: SizedBox(
         height: 140, // Altura fixa de 140px
         child: Stack(

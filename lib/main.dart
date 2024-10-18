@@ -33,25 +33,22 @@ class _SplashScreenState extends State<SplashScreen> {
     // Aguarde 3 segundos e, em seguida, navegue para a tela inicial
     Timer(const Duration(seconds: 3), () {
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => TelaInicio()),
+        MaterialPageRoute(builder: (context) => const TelaInicio()),
       );
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // Substitua pelo seu logo
-            Image.asset(
-              'Png.png', // URL do seu logo ou use Image.asset se estiver na pasta do projeto
-              height: 100,
-            ),
-            const SizedBox(height: 20),
-            const Text(
+            
+            SizedBox(height: 20),
+            Text(
               'Bem-vindo ao Meu App',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),

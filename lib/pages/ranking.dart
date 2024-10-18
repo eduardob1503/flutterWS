@@ -121,8 +121,8 @@ class TelaRanking extends StatelessWidget {
         children: [
           // Parte estática superior
           Container(
-            padding: EdgeInsets.all(16),
-            child: Column(
+            padding: const EdgeInsets.all(16),
+            child: const Column(
               children: [
                 Icon(Icons.arrow_upward, size: 40),
                 SizedBox(height: 8),
@@ -139,8 +139,8 @@ class TelaRanking extends StatelessWidget {
               itemCount: 20, // Número de itens no ranking
               itemBuilder: (context, index) {
                 return Container(
-                  margin: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-                  padding: EdgeInsets.all(12),
+                  margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                  padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(8),
@@ -148,7 +148,7 @@ class TelaRanking extends StatelessWidget {
                       BoxShadow(
                         color: Colors.black.withOpacity(0.1),
                         blurRadius: 4,
-                        offset: Offset(0, 2),
+                        offset: const Offset(0, 2),
                       ),
                     ],
                   ),
@@ -156,15 +156,15 @@ class TelaRanking extends StatelessWidget {
                     children: [
                       Text(
                         '${index + 1}.',
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
-                      SizedBox(width: 12),
-                      Icon(Icons.person, color: Colors.purple),
-                      SizedBox(width: 8),
+                      const SizedBox(width: 12),
+                      const Icon(Icons.person, color: Colors.purple),
+                      const SizedBox(width: 8),
                       Expanded(
                         child: Text('Aluno ${index + 1}'),
                       ),
-                      Text(
+                      const Text(
                         '3685pts',
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),

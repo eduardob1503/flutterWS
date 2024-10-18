@@ -177,7 +177,6 @@ class _LoginScreenState extends State<LoginScreen> {
             const SizedBox(height: 20),
 
             // Exibe o status de autenticação
-            Text(_isAuthenticated ? 'Autenticado com sucesso!' : 'Não autenticado'),
           ],
         ),
       ),
