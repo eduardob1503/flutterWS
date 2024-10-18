@@ -1,5 +1,7 @@
-package com.example.ws_project
+package com.example.biometria
 
-import io.flutter.embedding.android.FlutterActivity
+import io.flutter.embedding.android.FlutterFragmentActivity
 
-class MainActivity: FlutterActivity()
+class MainActivity : FlutterFragmentActivity() {
+    // Você pode adicionar código adicional aqui, se necessário
+}
