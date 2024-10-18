@@ -7,95 +7,8 @@ import 'package:ws_project/pages/perfil.dart';
 class TelaLogin extends StatelessWidget {
   const TelaLogin({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: LoginScreen(),
-    );
-  }
-}
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
 
-  @override
-  _LoginScreenState createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends State<LoginScreen> {
-  final LocalAuthentication auth = LocalAuthentication();
-  bool _isAuthenticated = false;
-  bool _canCheckBiometrics = false;
-
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-    _checkBiometrics();
-  }
-
-  Future<void> _checkBiometrics() async {
-    bool canCheckBiometrics = false;
-    try {
-      canCheckBiometrics = await auth.canCheckBiometrics;
-    } catch (e) {
-      print(e);
-    }
-    setState(() {
-      _canCheckBiometrics = canCheckBiometrics;
-    });
-  }
-
-  Future<void> _authenticateOrLogin() async {
-    bool authenticated = false;
-    try {
-      authenticated = await auth.authenticate(
-        localizedReason: 'Autentique-se para continuar',
-        options: const AuthenticationOptions(
-          useErrorDialogs: true,
-          stickyAuth: true,
-        ),
-      );
-    } catch (e) {
-      print(e);
-    }
-    
-    if (!authenticated) {
-      // Se não for autenticado com biometria, tenta login com email e senha
-      _loginWithCredentials();
-    } else {
-      setState(() {
-        _isAuthenticated = authenticated;
-      });
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Autenticado com sucesso!')),
-      );
-      // Navegar para a próxima página
-    }
-  }
-
-  void _loginWithCredentials() {
-    String email = _emailController.text;
-    String password = _passwordController.text;
-
-    // Aqui você deve adicionar a lógica para validar o email e a senha
-    if (email.isNotEmpty && password.isNotEmpty) {
-      // Suponha que a autenticação foi bem-sucedida
-      setState(() {
-        _isAuthenticated = true;
-      });
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Login realizado com sucesso!')),
-      );
-      // Navegar para a próxima página
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Por favor, preencha todos os campos.')),
-      );
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -126,7 +39,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
             // Campo de e-mail
             TextFormField(
-              controller: _emailController,
               decoration: const InputDecoration(
                 labelText: 'Email',
                 border: OutlineInputBorder(),
@@ -136,7 +48,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
             // Campo de senha
             TextFormField(
-              controller: _passwordController,
               decoration: const InputDecoration(
                 labelText: 'Senha',
                 border: OutlineInputBorder(),
@@ -167,7 +78,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
             // Botão "Entrar" com biometria e senha
             ElevatedButton(
-              onPressed: _authenticateOrLogin,
+              onPressed: (){
+                
+              },
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 15),
               ),
