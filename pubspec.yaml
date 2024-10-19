@@ -11,8 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
     assets:
-    - assets/Png.png
-  local_auth: ^2.1.0  
+      
 
 
 
@@ -24,3 +23,5 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  - assets/Png.png
+  local_auth: ^2.1.0
