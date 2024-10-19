@@ -1,98 +1,121 @@
 import 'package:flutter/material.dart';
-import 'package:local_auth/local_auth.dart';
-import 'package:ws_project/pages/cadastro.dart';
-import 'package:ws_project/pages/splash.dart';
-import 'package:ws_project/pages/perfil.dart';
+import 'package:ws_project/biometric/biometric_block.dart';
+import 'package:ws_project/pages/materias.dart';
 
-class TelaLogin extends StatelessWidget {
-  const TelaLogin({super.key});
+class LoginScreen extends StatefulWidget {
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
 
+class _LoginScreenState extends State<LoginScreen> {
+  final BiometricBloc _bioBloc = BiometricBloc();
+  int _failedAttempts = 0;
 
+  @override
+  void initState() {
+    super.initState();
+    _checkBiometricSupport();
+  }
 
+  Future<void> _checkBiometricSupport() async {
+    await _bioBloc.checkDevice();
+    if (_failedAttempts < 3) _authenticate();
+  }
+
+  Future<void> _authenticate() async {
+    await _bioBloc.authenticate();
+    if (_bioBloc.biometric.value.authorized != "Autorizado") {
+      setState(() => _failedAttempts++);
+      if (_failedAttempts == 3) _showManualLoginMessage();
+    }
+  }
+
+  void _showManualLoginMessage() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Falha na biometria. Use e-mail e senha.")),
+    );
+  }
+
+  void _onLoginPressed() {
+    if (_failedAttempts < 3) {
+      _authenticate();
+    } else {
+      // Validação manual de login e navegação para a tela de matérias
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => TelaMaterias()),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const TelaInicio()),
-            );
-          },
+          icon: Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () => Navigator.pop(context),
         ),
-        title: const Text('Login'),
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
+      body: Padding(
+        padding: EdgeInsets.all(16),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SizedBox(height: 50),
-            Image.network(
-              'https://via.placeholder.com/150',
-              height: 100,
-            ),
-            const SizedBox(height: 30),
-
-            // Campo de e-mail
-            TextFormField(
-              decoration: const InputDecoration(
-                labelText: 'Email',
-                border: OutlineInputBorder(),
-              ),
-            ),
-            const SizedBox(height: 16),
-
-            // Campo de senha
-            TextFormField(
-              decoration: const InputDecoration(
-                labelText: 'Senha',
-                border: OutlineInputBorder(),
-              ),
-              obscureText: true,
-            ),
-
-            // Botão recuperar senha
-            Align(
-              alignment: Alignment.centerLeft,
-              child: TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const TelaPerfil(),
-                    ),
-                  );
-                },
-                child: const Text(
-                  'Recuperar senha',
-                  style: TextStyle(color: Colors.blue),
-                ),
-              ),
-            ),
-
-            const SizedBox(height: 20),
-
-            // Botão "Entrar" com biometria e senha
-            ElevatedButton(
-              onPressed: (){
-                
-              },
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 15),
-              ),
-              child: const Text('Entrar'),
-            ),
-
-            const SizedBox(height: 20),
-
-            // Exibe o status de autenticação
+            _buildLogo(),
+            SizedBox(height: 32),
+            _buildTextField('Email'),
+            SizedBox(height: 16),
+            _buildTextField('Senha', isPassword: true),
+            SizedBox(height: 16),
+            _buildTextButton('Recuperar senha'),
+            SizedBox(height: 16),
+            _buildLoginButton(),
           ],
         ),
       ),
     );
   }
+
+  Widget _buildLogo() => Column(
+        children: [
+          Container(
+            width: 100,
+            height: 100,
+            decoration: BoxDecoration(
+              color: Colors.grey[300],
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Center(
+              child: Text('S', style: TextStyle(fontSize: 60, fontWeight: FontWeight.bold)),
+            ),
+          ),
+          SizedBox(height: 8),
+          Text('appsala', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        ],
+      );
+
+  Widget _buildTextField(String label, {bool isPassword = false}) => TextFormField(
+        obscureText: isPassword,
+        decoration: InputDecoration(
+          labelText: label,
+          border: OutlineInputBorder(),
+        ),
+      );
+
+  Widget _buildTextButton(String label) => TextButton(
+        onPressed: () {},
+        child: Text(label, style: TextStyle(color: Colors.grey)),
+      );
+
+  Widget _buildLoginButton() => ElevatedButton(
+        onPressed: _onLoginPressed,
+        child: Text('Entrar'),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.black,
+          minimumSize: Size(double.infinity, 50),
+        ),
+      );
 }

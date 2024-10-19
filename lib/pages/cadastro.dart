@@ -16,7 +16,7 @@ class TelaCadastro extends StatelessWidget {
             Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const TelaInicio(),
+                    builder: (context) => LoginScreen(),
                     )
                   );
           },
@@ -74,7 +74,7 @@ class TelaCadastro extends StatelessWidget {
                   Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const TelaLogin(),
+                  builder: (context) => LoginScreen(),
                 ));
 
 
