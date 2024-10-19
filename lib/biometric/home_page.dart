@@ -1,4 +1,4 @@
-import 'package:biometria/biometrics.dart';
+import 'package:ws_project/biometric/biometrics.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatelessWidget{

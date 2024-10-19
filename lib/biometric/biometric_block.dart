@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/services.dart';
-import 'package:biometria/biometric_data.dart';
+import 'package:ws_project/biometric/biometric_data.dart';
+
 import 'package:local_auth/local_auth.dart';
 
 class BiometricBloc {

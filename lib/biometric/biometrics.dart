@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:biometria/biometric_block.dart';
+import 'package:ws_project/biometric/biometric_block.dart';
 
 import 'biometric_data.dart';
 
