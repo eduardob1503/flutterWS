@@ -19,12 +19,23 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<void> _checkBiometricSupport() async {
     await _bioBloc.checkDevice();
-    if (_failedAttempts < 3) _authenticate();
+    if (_failedAttempts < 3){
+       _authenticate();
+    } else {
+      _showManualLoginMessage();
+    }
+  
   }
 
   Future<void> _authenticate() async {
     await _bioBloc.authenticate();
-    if (_bioBloc.biometric.value.authorized != "Autorizado") {
+    if (_bioBloc.biometric.value.authorized == "Autorizado") {
+      // Navegar para a tela desejada quando a biometria for bem-sucedida
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => TelaMaterias()),
+      );
+    } else {
       setState(() => _failedAttempts++);
       if (_failedAttempts == 3) _showManualLoginMessage();
     }
