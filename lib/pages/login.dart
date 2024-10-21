@@ -24,7 +24,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<void> _authenticate() async {
     await _bioBloc.authenticate();
-    if (_bioBloc.biometric.value.authorized != "Autorizado") {
+    if (_bioBloc.biometric.value.authorized == true) {
       setState(() => _failedAttempts++);
       if (_failedAttempts == 3) _showManualLoginMessage();
     }
