@@ -34,7 +34,7 @@ class TelaMaterias extends StatelessWidget {
                 height: 100,
               ),
             ),
-            _buildDrawerItem(context, "Meu Perfil", TelaPerfil()),
+            _buildDrawerItem(context, "Meu Perfil", const TelaPerfil()),
             _buildDrawerItem(context, "Ranking", TelaRanking()),
             _buildDrawerItem(context, "Matéria", const TelaMaterias()),
           ],
@@ -92,7 +92,6 @@ class TelaMaterias extends StatelessWidget {
               bottom: 16,
               right: 16,
               child: ElevatedButton(
-                child: const Text('Acessar'),
                 onPressed: () {
                   // Ação do botão de acesso
                 },
@@ -100,6 +99,7 @@ class TelaMaterias extends StatelessWidget {
                   backgroundColor: Colors.black,
                   foregroundColor: Colors.white,
                 ),
+                child: const Text('Acessar'),
               ),
             ),
           ],

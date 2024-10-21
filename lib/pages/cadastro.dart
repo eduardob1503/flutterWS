@@ -1,6 +1,5 @@
 import "package:flutter/material.dart";
 import 'package:ws_project/pages/login.dart';
-import 'splash.dart';
 
 
 class TelaCadastro extends StatelessWidget {

@@ -120,7 +120,6 @@ class TelaPerfil extends StatelessWidget {
 
             const SizedBox(height: 450),
             ElevatedButton(
-              child: const Text('Logout'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.black,
                 foregroundColor: Colors.white,
@@ -136,6 +135,7 @@ class TelaPerfil extends StatelessWidget {
                     )
                   );
               },
+              child: const Text('Logout'),
             ),
           ],
         ),

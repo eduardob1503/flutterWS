@@ -19,12 +19,23 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<void> _checkBiometricSupport() async {
     await _bioBloc.checkDevice();
-    if (_failedAttempts < 3) _authenticate();
+    if (_failedAttempts < 3){
+       _authenticate();
+    } else {
+      _showManualLoginMessage();
+    }
+
   }
 
   Future<void> _authenticate() async {
     await _bioBloc.authenticate();
-    if (_bioBloc.biometric.value.authorized == true) {
+    if (_bioBloc.biometric.value.authorized == "Autorizado") {
+      // Navegar para a tela desejada quando a biometria for bem-sucedida
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => TelaMaterias()),
+      );
+    } else {
       setState(() => _failedAttempts++);
       if (_failedAttempts == 3) _showManualLoginMessage();
     }
@@ -35,8 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
       SnackBar(content: Text("Falha na biometria. Use e-mail e senha.")),
     );
   }
-
-  void _onLoginPressed() {
+void _onLoginPressed() {
     if (_failedAttempts < 3) {
       _authenticate();
     } else {
@@ -84,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
           Container(
             width: 100,
             height: 100,
-            decoration: BoxDecoration(
+decoration: BoxDecoration(
               color: Colors.grey[300],
               borderRadius: BorderRadius.circular(10),
             ),

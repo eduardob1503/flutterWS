@@ -7,6 +7,8 @@ import 'package:ws_project/pages/perfil.dart';
 
 
 class TelaRanking extends StatelessWidget {
+  const TelaRanking({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
