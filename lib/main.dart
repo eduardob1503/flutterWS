@@ -33,10 +33,10 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    // Aguarde 3 segundos e, em seguida, navegue para a tela inicial
+    // Aguarde 3 segundos e, em seguida, navegue para a tela de login
     Timer(const Duration(seconds: 3), () {
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const TelaMateria5()),
+        MaterialPageRoute(builder: (context) => LoginScreen()),
       );
     });
   }

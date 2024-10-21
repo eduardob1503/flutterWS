@@ -21,32 +21,32 @@ class BiometricBloc {
      _scBiometric.add(_output);
   }
 
-authenticate() async{
-  try{
-    _output.isAuthenticating = true;
-    _scBiometric.add(_output);
+  Future<bool> authenticate() async {
+    try {
+      _output.isAuthenticating = true;
+      _scBiometric.add(_output);
 
-    bool authenticated = await _auth.authenticate(
-      localizedReason: "Autentificação", 
-      options: const AuthenticationOptions(
-        stickyAuth: true,
-      ));
+      bool authenticated = await _auth.authenticate(
+        localizedReason: "Autentificação", 
+        options: const AuthenticationOptions(
+          stickyAuth: true,
+        ));
       _output.authorized = authenticated ? "Autorizado" : "Não Autorizado";
       _output.isAuthenticating = false;
       _scBiometric.add(_output);
+      return authenticated;
+    } on PlatformException catch(e) {
+      _output.authorized = "Erro ao Autenticar";
+      _output.isAuthenticating = false;
+      _scBiometric.add(_output);
+      print(e);
+      return false;
+    }
   }
-  on PlatformException catch(e){
-    _output.authorized = "Erro ao Autenticar";
-    _output.isAuthenticating = false;
-    _scBiometric.add(_output);
-    print(e);
+
+  cancelAuthentication() async{
+    _auth.stopAuthentication();
   }
-}
-
-
-cancelAuthentication() async{
-  _auth.stopAuthentication();
-}
 
   dispose(){
     _scBiometric.close();
