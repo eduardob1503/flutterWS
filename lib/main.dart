@@ -5,6 +5,7 @@ import 'package:ws_project/pages/materias.dart';
 import 'package:ws_project/pages/ranking.dart';
 import 'package:ws_project/pages/splash.dart'; // Certifique-se de importar suas outras páginas
 import 'dart:async';
+import 'package:ws_project/pages/materias5.dart';
 
 void main() {
   runApp(const MyApp());
@@ -35,7 +36,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // Aguarde 3 segundos e, em seguida, navegue para a tela inicial
     Timer(const Duration(seconds: 3), () {
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const TelaInicio()),
+        MaterialPageRoute(builder: (context) => const TelaMateria5()),
       );
     });
   }
