@@ -10,19 +10,23 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final BiometricService _bioService = BiometricService();
-  bool _isLoading = false;
+  bool _isAuthenticating = false;
 
   @override
   void initState() {
     super.initState();
-    _authenticateWithBiometrics();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _authenticateWithBiometrics();
+    });
   }
 
   Future<void> _authenticateWithBiometrics() async {
-    setState(() => _isLoading = true);
+    setState(() => _isAuthenticating = true);
     bool authenticated = await _bioService.authenticate();
-    setState(() => _isLoading = false);
-    if (authenticated) _navigateToMaterias();
+    setState(() => _isAuthenticating = false);
+    if (authenticated) {
+      _navigateToMaterias();
+    }
   }
 
   void _navigateToMaterias() {
@@ -33,28 +37,39 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Login'), backgroundColor: Colors.grey),
-      body: _isLoading
-          ? Center(child: CircularProgressIndicator())
-          : Padding(
-              padding: EdgeInsets.all(16),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  _buildLogo(),
-                  SizedBox(height: 32),
-                  _buildTextField('Email'),
-                  SizedBox(height: 16),
-                  _buildTextField('Senha', isPassword: true),
-                  SizedBox(height: 16),
-                  _buildLoginButton(),
-                  SizedBox(height: 16),
-                  TextButton(
-                    onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => TelaCadastro())),
-                    child: Text('Criar conta'),
-                  ),
-                ],
-              ),
+      body: Stack(
+        children: [
+          _buildLoginForm(),
+          if (_isAuthenticating)
+            Container(
+              color: Colors.black54,
+              child: Center(child: CircularProgressIndicator()),
             ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildLoginForm() {
+    return Padding(
+      padding: EdgeInsets.all(16),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          _buildLogo(),
+          SizedBox(height: 32),
+          _buildTextField('Email'),
+          SizedBox(height: 16),
+          _buildTextField('Senha', isPassword: true),
+          SizedBox(height: 16),
+          _buildLoginButton(),
+          SizedBox(height: 16),
+          TextButton(
+            onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => TelaCadastro())),
+            child: Text('Criar conta'),
+          ),
+        ],
+      ),
     );
   }
 
