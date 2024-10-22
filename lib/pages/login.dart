@@ -3,6 +3,7 @@ import 'package:ws_project/biometric/biometric_service.dart';
 import 'package:ws_project/pages/materias.dart';
 import 'package:ws_project/pages/cadastro.dart';
 
+
 class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -10,66 +11,50 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final BiometricService _bioService = BiometricService();
-  bool _isAuthenticating = false;
+  bool _isLoading = false;
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _authenticateWithBiometrics();
-    });
+    _authenticateWithBiometrics();
   }
 
   Future<void> _authenticateWithBiometrics() async {
-    setState(() => _isAuthenticating = true);
+    setState(() => _isLoading = true);
     bool authenticated = await _bioService.authenticate();
-    setState(() => _isAuthenticating = false);
-    if (authenticated) {
-      _navigateToMaterias();
-    }
+    setState(() => _isLoading = false);
+    if (authenticated) navigateToMaterias();
   }
 
-  void _navigateToMaterias() {
+  void navigateToMaterias() {
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => TelaMaterias()));
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Login'), backgroundColor: Colors.grey),
-      body: Stack(
-        children: [
-          _buildLoginForm(),
-          if (_isAuthenticating)
-            Container(
-              color: Colors.black54,
-              child: Center(child: CircularProgressIndicator()),
+      body: _isLoading
+          ? Center(child: CircularProgressIndicator())
+          : Padding(
+              padding: EdgeInsets.all(16),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  _buildLogo(),
+                  SizedBox(height: 32),
+                  _buildTextField('Email'),
+                  SizedBox(height: 16),
+                  _buildTextField('Senha', isPassword: true),
+                  SizedBox(height: 16),
+                  _buildLoginButton(),
+                  SizedBox(height: 16),
+                  TextButton(
+                    onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => TelaCadastro())),
+                    child: Text('Criar conta'),
+                  ),
+                ],
+              ),
             ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildLoginForm() {
-    return Padding(
-      padding: EdgeInsets.all(16),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          _buildLogo(),
-          SizedBox(height: 32),
-          _buildTextField('Email'),
-          SizedBox(height: 16),
-          _buildTextField('Senha', isPassword: true),
-          SizedBox(height: 16),
-          _buildLoginButton(),
-          SizedBox(height: 16),
-          TextButton(
-            onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => TelaCadastro())),
-            child: Text('Criar conta'),
-          ),
-        ],
-      ),
     );
   }
 
